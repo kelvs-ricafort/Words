@@ -1,5 +1,6 @@
 package com.newtechieblog.wordpress.views.wordsapp
 
+import android.content.Intent
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -47,7 +48,17 @@ class LetterAdapter: RecyclerView.Adapter<LetterAdapter.LetterViewHolder>() {
         val item = list.get(position)
         holder.button.text = item.toString()
 
-
+        holder.button.setOnClickListener {
+            val context = holder.itemView.context
+            // Create an intent with a destination of DetailActivity
+            val intent = Intent(context, DetailActivity::class.java)
+            // Add the selected letter to the intent as extra data
+            // The text of Buttons are [CharSequence], a list of characters,
+            // so it must be explicitly converted into a [String].
+            intent.putExtra("letter", holder.button.text.toString())
+            // Start an activity using the data and destination from the Intent.
+            context.startActivity(intent)
+        }
     }
 
     // Setup custom accessibility delegate to set the text read with
